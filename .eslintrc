@@ -1,0 +1,55 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser", // Specifies the ESLint parser to be typescript
+  "parserOptions": {
+    "ecmaVersion": "latest", // Allows for the parsing of modern ECMAScript features
+    "sourceType": "module", // Allows for the use of imports
+    "ecmaFeatures": {
+      "jsx": true // Allows for the parsing of JSX
+    }
+  },
+  "plugins": ["react", "import"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "eslint-config-prettier" // Disables ESLint rules that might conflict with Prettier's formatting. Make sure it's always the last config
+  ],
+  "rules": {
+    "react/react-in-jsx-scope": "off", // Prevents "React" must be in scope when using JSX
+    "react-hooks/exhaustive-deps": "off", // Turns off missing dependencies in dependency array in hooks
+    "import/no-named-as-default-member": "off", // Allows import analytics easier
+    "@typescript-eslint/no-explicit-any": "off", // Turns off checking for any type
+    // Allows unused variables or arguments that start with "_"
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      { "ignoreRestSiblings": true, "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }
+    ],
+    // Prevents importing type without "import type" which reduces circular dependencies
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        "prefer": "type-imports",
+        "disallowTypeAnnotations": false
+      }
+    ],
+    "no-console": ["warn", { "allow": ["warn", "error"] }] // Warns about console logs
+  },
+  "settings": {
+    "react": {
+      "version": "detect" // Automatically detect the react version
+    },
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
+        "project": "tsconfig.json"
+      }
+    }
+  }
+}
